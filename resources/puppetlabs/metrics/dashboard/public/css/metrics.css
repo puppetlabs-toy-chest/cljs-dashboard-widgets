@@ -1,0 +1,84 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+
+body {
+    background-color: white;
+    font-family: 'Lato', sans-serif;
+}
+
+.x.axis line {
+    shape-rendering: auto;
+}
+
+.line {
+    fill: #edf7ff;
+    stroke: #43a2ca;
+    stroke-width: 1.5px;
+}
+
+#metrics {
+    cell-spacing: 0px;
+    cell-padding: 0px;
+    border-collapse: collapse;
+}
+
+#metrics td {
+    margin: 0px;
+    padding: 0px 10px;
+}
+
+#metrics tr {
+    border-bottom: 2px solid #eee;
+}
+
+.counterbox {
+    text-align: center;
+}
+
+.counterdesc {
+    font-size: 20px;
+    color: #ef8a62;
+    text-align: right;
+    font-weight: 700;
+}
+
+.counteraddendum {
+    font-size: 15px;
+    height: 100%;
+    color: #666;
+    text-align: right;
+}
+
+.countertext {
+    font-size: 50px;
+    color: #43a2ca;
+    height: 65px;
+}
+
+.countertimescale {
+    color: #999;
+    font-variant: small-caps;
+}
+
+.y_axis {
+    font-size: 10px;
+    color: #999;
+}
+
+.y_axis path, .y_axis line {
+    fill: none;
+    stroke: #999;
+}
+
+.hidden {
+    display: none;
+}
+
+#version-info {
+    font-size: 15px;
+    color: #666;
+    float: right;
+}
+
+#update-link {
+    color: blue;
+}
