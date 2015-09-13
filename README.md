@@ -1,6 +1,17 @@
 # cljs-dashboard-widgets
 A library of clojurescript widgets and utility code, intended for use in building developer / metrics dashboards.
 
+## Contents
+
+At present the library contains two widgets:
+
+* `metrics-box`: A box that displays a line graph of a series of data points (as seen in the PuppetDB dashboard)
+* `sortable-table`: A simple table, built using the `reagent` library.  Take a list of maps representing your table data, assign it to a reagent atom, and bind the table to the atom.  The widget will render the data, with column headers that can be clicked on to re-sort the table.  Modifying the value of the atom will cause the table to be updated automatically.
+
+## Demo
+
+The project includes a sample app that you can run to see the widgets in action, and to see how to wire them up to a data source on the server.
+
 To run:
 
 * start a Clojure REPL
