@@ -37,3 +37,9 @@ user=> (go)
 ...
 user=> (start-figwheel)
 ```
+
+## Support
+
+We use the
+[Trapperkeeper project on JIRA](https://tickets.puppetlabs.com/browse/TK)
+for tickets on cljs-dashboard-widgets, although Github issues are welcome too.
