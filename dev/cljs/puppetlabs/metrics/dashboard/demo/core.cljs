@@ -108,31 +108,29 @@
 
 (defn sortable-tables [requests-atom functions-atom]
   (fn []
-    [:table
-     [:tbody
-      [:tr
-       [:td
-        (sortable-table/sortable-table
-          "Top 10 Requests"
-          {:id-field :id
-           :fields [:id "Route"
-                    :count "Count"
-                    :mean "Mean"
-                    :aggregate "Aggregate"]
-           :sort-field :aggregate
-           :ascending false}
-          requests-atom)]
-       [:td
-        (sortable-table/sortable-table
-          "Top 10 Functions"
-          {:id-field :id
-           :fields [:id "Function"
-                    :count "Count"
-                    :mean "Mean"
-                    :aggregate "Aggregate"]
-           :sort-field :aggregate
-           :ascending false}
-          functions-atom)]]]]))
+   [:div {:class "clearfix"}
+    [:div {:class "left table-panel"}
+     (sortable-table/sortable-table
+       "Top 10 Requests"
+       {:id-field :id
+        :fields [:id "Route"
+                 :count "Count"
+                 :mean "Mean"
+                 :aggregate "Aggregate"]
+        :sort-field :aggregate
+        :ascending false}
+       requests-atom)]
+    [:div {:class "left table-panel"}
+     (sortable-table/sortable-table
+       "Top 10 Functions"
+       {:id-field :id
+        :fields [:id "Function"
+                 :count "Count"
+                 :mean "Mean"
+                 :aggregate "Aggregate"]
+        :sort-field :aggregate
+        :ascending false}
+       functions-atom)]]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Public
