@@ -45,14 +45,14 @@
         column-headers (mapv (partial column-header-th table-state) column-tuples)
         headers-tr (apply conj [:tr] column-headers)]
     [(fn []
-       [:span
-        [:div {:class "tabletitle"} title]
-        [:table
-         [:thead
-          headers-tr]
-         [:tbody
-          (for [item (sorted-contents table-state table-data)]
-            (let [tds (mapv (partial item-td item) (map first column-tuples))]
-              (with-meta
-                (apply conj [:tr] tds)
-                {:key (get item id-field)})))]]])]))
+     [:div
+      [:table
+       [:caption {:class "tabletitle"} title]
+       [:thead
+        headers-tr]
+       [:tbody
+        (for [item (sorted-contents table-state table-data)]
+          (let [tds (mapv (partial item-td item) (map first column-tuples))]
+            (with-meta
+              (apply conj [:tr] tds)
+              {:key (get item id-field)})))]]])]))

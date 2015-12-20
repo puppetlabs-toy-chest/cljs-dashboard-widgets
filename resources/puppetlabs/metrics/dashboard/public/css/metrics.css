@@ -82,3 +82,11 @@ body {
 #update-link {
     color: blue;
 }
+
+.table-panel {
+  margin-right: 1rem;
+}
+
+caption {
+  margin-bottom: 0.5rem;
+}
