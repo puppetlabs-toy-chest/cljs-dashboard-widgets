@@ -1,6 +1,13 @@
 # cljs-dashboard-widgets
 A library of clojurescript widgets and utility code, intended for use in building developer / metrics dashboards.
 
+## Installation
+
+To use this library in your application, simply add this
+project as a dependency in your leiningen project file:
+
+[![Clojars Project](http://clojars.org/puppetlabs/cljs-dashboard-widgets/latest-version.svg)](http://clojars.org/puppetlabs/cljs-dashboard-widgets)
+
 ## Contents
 
 At present the library contains two widgets:
