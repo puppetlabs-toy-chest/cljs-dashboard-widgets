@@ -1,4 +1,4 @@
-(defproject puppetlabs/cljs-dashboard-widgets "0.1.0-SNAPSHOT"
+(defproject puppetlabs/cljs-dashboard-widgets "0.1.0"
   :description "A clojurescript library with widgets useful for metrics dashboards.  Plays nicely with trapperkeeper-status and trapperkeeper-metrics."
   :url "https://github.com/puppetlabs/cljs-dashboard-widgets"
   :license {:name "Apache License, Version 2.0"
