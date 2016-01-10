@@ -1,4 +1,8 @@
 (defproject puppetlabs/cljs-dashboard-widgets "0.1.0-SNAPSHOT"
+  :description "A clojurescript library with widgets useful for metrics dashboards.  Plays nicely with trapperkeeper-status and trapperkeeper-metrics."
+  :url "https://github.com/puppetlabs/cljs-dashboard-widgets"
+  :license {:name "Apache License, Version 2.0"
+            :url "http://www.apache.org/licenses/LICENSE-2.0"}
 
   :source-paths ["src/cljs"]
 
@@ -14,6 +18,17 @@
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
 
   :pedantic? :abort
+  
+  :lein-release {:scm         :git
+                 :deploy-via  :lein-deploy}
+
+  :repositories [["releases" "http://nexus.delivery.puppetlabs.net/content/repositories/releases/"]
+                 ["snapshots" "http://nexus.delivery.puppetlabs.net/content/repositories/snapshots/"]]
+
+  :deploy-repositories [["releases" {:url "https://clojars.org/repo"
+                                     :username :env/clojars_jenkins_username
+                                     :password :env/clojars_jenkins_password
+                                     :sign-releases false}]]
 
   :plugins [[lein-cljsbuild "1.1.0" :exclusions [org.clojure/clojure]]]
 
