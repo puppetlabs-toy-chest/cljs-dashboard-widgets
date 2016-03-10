@@ -9,16 +9,17 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
 
                  ;; transitive dependencies
-                 [org.clojure/clojurescript "1.7.122"]
+                 [org.clojure/clojurescript "1.7.228"]
                  ;; end transitive dependencies
 
-                 [cljsjs/react "0.12.2-5"]
-                 [reagent "0.5.0"]
-                 [com.andrewmcveigh/cljs-time "0.3.13"]
-                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
+                 [cljsjs/d3 "3.5.7-1"]
+                 [cljsjs/react "0.13.3-1"]
+                 [reagent "0.5.1"]
+                 [com.andrewmcveigh/cljs-time "0.4.0"]
+                 [org.clojure/core.async "0.2.374"]]
 
   :pedantic? :abort
-  
+
   :lein-release {:scm         :git
                  :deploy-via  :lein-deploy}
 
@@ -30,7 +31,7 @@
                                      :password :env/clojars_jenkins_password
                                      :sign-releases false}]]
 
-  :plugins [[lein-cljsbuild "1.1.0" :exclusions [org.clojure/clojure]]]
+  :plugins [[lein-cljsbuild "1.1.2" :exclusions [org.clojure/clojure]]]
 
   :min-lein-version "2.5.0"
 
@@ -69,9 +70,10 @@
 
                                       [org.clojure/tools.namespace "0.2.10"]
                                       [leiningen "2.5.1"]
-                                      [cljs-http "0.1.37"]]
+                                      [cljs-http "0.1.39"]]
 
-                       :plugins      [[lein-figwheel "0.3.9" :exclusions [org.clojure/clojurescript org.codehaus.plexus/plexus-utils]]]
+                       :plugins      [[lein-figwheel "0.5.0-6" :exclusions [org.clojure/clojurescript
+                                                                            org.codehaus.plexus/plexus-utils]]]
 
                        :figwheel     {:http-server-root "puppetlabs/metrics/dashboard/public"
                                       :server-port      3449
