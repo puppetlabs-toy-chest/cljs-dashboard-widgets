@@ -1,5 +1,6 @@
 (ns puppetlabs.metrics.dashboard.metrics-box
-  (:require [goog.string :as gstring]
+  (:require [cljsjs.d3]
+            [goog.string :as gstring]
             [goog.string.format]
             [cljs-time.core :as cljs-time]
             [reagent.core :as reagent]))
@@ -79,20 +80,29 @@
      :line    line}))
 
 (defn metrics-box
-  [description addendum data-fn]
-  (let [box-id (str "counterbox"
-                    (swap! next-box-id inc))]
-    {:description description
-     :box-id      box-id
-     :addendum    addendum
-     :data-fn     data-fn
-     :reagent-fn  (fn []
-                    [metrics-box-dom box-id description addendum])}))
+  ([description addendum data-fn]
+   (metrics-box description
+                addendum
+                #((.format js/d3 ",.1f") %)
+                data-fn))
+  ([description addendum format-fn data-fn]
+   (let [box-id (str "counterbox"
+                     (swap! next-box-id inc))]
+     {:description description
+      :box-id      box-id
+      :addendum    addendum
+      :data-fn     data-fn
+      :format-fn   format-fn
+      :reagent-fn  (fn []
+                     [metrics-box-dom box-id description addendum])})))
 
 (defn redraw-box!
-  [num-historical-data-points polling-interval box {:keys [data-fn x y line] :as state}]
+  [num-historical-data-points
+   polling-interval
+   box
+   format-fn
+   {:keys [data-fn x y line] :as state}]
   (let [box-node box
-        format #((.format js/d3 ",.1f") %)
         data (data-fn)
         datavals (map #(.-value %) data)
         now (cljs-time/now)
@@ -107,7 +117,7 @@
                (array startx
                       (- (.-time (last data)) polling-interval))))
 
-    (let [y-domain (array (apply min datavals)
+    (let [y-domain (array (apply min 0 datavals)
                           (apply max datavals))]
       (.. y
           (domain y-domain)
@@ -115,7 +125,9 @@
 
     (.. box-node
         (select ".countertext")
-        (html (format (last datavals))))
+        (html (if-let [last-val (last datavals)]
+                (format-fn last-val)
+                "??")))
 
     (let [translate (gstring/format "translate(%s)"
                                     (x
@@ -135,13 +147,14 @@
                                num-historical-data-points
                                polling-interval
                                box
+                               format-fn
                                state)))))
 
     (let [axis-fn (.. y
                       -axis
                       (ticks 3)
                       (tickSize 6 0 0)
-                      (tickFormat format))]
+                      (tickFormat format-fn))]
       (.. box-node
           (select ".y_axis")
           transition
@@ -151,21 +164,24 @@
   [num-historical-data-points polling-interval boxes]
   (fn [metrics-table]
     (let [table-dom-node (reagent/dom-node metrics-table)]
-      (doseq [box boxes]
+      (doseq [{:keys [box-id
+                      data-fn
+                      format-fn]} boxes]
         (let [dom-node (-> (.select js/d3 table-dom-node)
-                           (.select (str "#" (:box-id box))))
+                           (.select (str "#" box-id)))
               now (cljs-time/now)
               x-axis-domain (array (date-subtract now (* num-historical-data-points
                                                          polling-interval))
                                    now)
               state (initialize-counterbox
                       x-axis-domain
-                      (:data-fn box)
+                      data-fn
                       dom-node)]
           (js/setTimeout #(redraw-box!
                            num-historical-data-points
                            polling-interval
                            dom-node
+                           format-fn
                            state)
                          (.ceil js/Math
                                 (* polling-interval
