@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "file_format": "This MAINTAINERS file format is described at http://pup.pt/maintainers",
+  "issues": "https://tickets.puppetlabs.com/browse/TK",
+  "people": [
+    {
+      "github": "jpinsonault",
+      "email": "joe.pinsonault@puppet.com",
+      "name": "Joe Pinsonault"
+    },
+    {
+      "github": "cprice404",
+      "email": "chris@puppet.com",
+      "name": "Chris Price"
+    },
+    {
+      "github": "dankreek",
+      "email": "justin.may@puppet.com",
+      "name": "Justin May"
+    },
+    {
+      "github": "steveax",
+      "email": "steve@puppet.com",
+      "name": "Steve Axthelm"
+    }
+  ]
+}
