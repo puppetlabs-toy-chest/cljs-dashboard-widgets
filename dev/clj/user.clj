@@ -4,7 +4,7 @@
             [puppetlabs.trapperkeeper.app :as tka]
             [puppetlabs.metrics.dashboard.demo.service :refer [metrics-service]]
             [clojure.tools.namespace.repl :refer [refresh]]
-            [leiningen.core.main :as lein]))
+            [figwheel-sidecar.repl-api :as ra]))
 
 (defn user-config
   []
@@ -58,8 +58,7 @@ Commands:
 ;;; CLJS utils
 
 (defn start-figwheel []
-  (future
     (print "Starting figwheel.\n")
-    (lein/-main ["figwheel"])))
+    (ra/start-figwheel!))
 
 (help)
