@@ -6,17 +6,20 @@
 
   :source-paths ["src/cljs"]
 
-  :dependencies [[org.clojure/clojure "1.7.0"]
+  :parent-project {:coords [puppetlabs/clj-parent "2.0.1"]
+                   :inherit [:managed-dependencies]}
+
+  :dependencies [[org.clojure/clojure "1.9.0"]
 
                  ;; transitive dependencies
-                 [org.clojure/clojurescript "1.7.228"]
+                 [org.clojure/clojurescript "1.10.238"]
                  ;; end transitive dependencies
-
-                 [cljsjs/d3 "3.5.7-1"]
+                 [com.fasterxml.jackson.core/jackson-core]
+                 [cljsjs/d3 "4.12.0-0"]
                  [cljsjs/react "0.13.3-1"]
                  [reagent "0.5.1"]
                  [com.andrewmcveigh/cljs-time "0.4.0"]
-                 [org.clojure/core.async "0.2.374"]]
+                 [org.clojure/core.async]]
 
   :pedantic? :abort
 
@@ -31,7 +34,8 @@
                                      :password :env/clojars_jenkins_password
                                      :sign-releases false}]]
 
-  :plugins [[lein-cljsbuild "1.1.2" :exclusions [org.clojure/clojure]]]
+  :plugins [[lein-cljsbuild "1.1.2" :exclusions [org.clojure/clojure]]
+            [lein-parent "0.3.1"]]
 
   :min-lein-version "2.5.0"
 
@@ -49,31 +53,36 @@
                        :dependencies [
                                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                       ;; transitive dependencies
-                                      [org.clojure/tools.macro "0.1.5"]
-                                      [org.clojure/tools.cli "0.3.1"]
-                                      [prismatic/schema "0.4.3"]
-                                      [prismatic/plumbing "0.4.3"]
-                                      [clj-time "0.7.0"]
+                                      [org.clojure/tools.macro]
+                                      [org.clojure/tools.cli]
+                                      [prismatic/schema]
+                                      [prismatic/plumbing]
+                                      [clj-time]
 
                                       [org.codehaus.plexus/plexus-utils "3.0.15"]
-                                      [org.apache.maven.wagon/wagon-provider-api "2.7"]
-                                      [org.apache.httpcomponents/httpclient "4.3.5"]
-                                      [commons-codec "1.10"]
+                                      [org.apache.maven.wagon/wagon-provider-api]
+                                      [org.apache.httpcomponents/httpclient]
+                                      [commons-codec]
 
-                                      [puppetlabs/kitchensink "1.2.0"]
+                                      [org.clojure/tools.analyzer "0.6.9"]
+                                      [org.clojure/tools.analyzer.jvm "0.7.0"]
+                                      [puppetlabs/kitchensink]
+                                      [com.cemerick/piggieback "0.2.1"]
                                       ;; end transitive dependencies
                                       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-                                      [puppetlabs/trapperkeeper "1.1.0"]
-                                      [puppetlabs/trapperkeeper-webserver-jetty9 "1.3.0"]
-                                      [puppetlabs/comidi "0.2.1"]
+                                      [puppetlabs/trapperkeeper]
+                                      [puppetlabs/trapperkeeper-webserver-jetty9]
+                                      [puppetlabs/comidi]
+                                      [org.clojure/tools.nrepl "0.2.13"]
+                                      [org.clojure/tools.namespace]
 
-                                      [org.clojure/tools.namespace "0.2.10"]
-                                      [leiningen "2.5.1"]
-                                      [cljs-http "0.1.39"]]
+                                      [cljs-http "0.1.39"]
+                                      [figwheel-sidecar "0.5.4-6" :exclusions [org.clojure/clojure]]]
 
-                       :plugins      [[lein-figwheel "0.5.0-6" :exclusions [org.clojure/clojurescript
-                                                                            org.codehaus.plexus/plexus-utils]]]
+                       :plugins      [[lein-figwheel "0.5.0-6" :exclusions [commons-codec
+                                                                            org.clojure/clojure
+                                                                            commons-io]]]
 
                        :figwheel     {:http-server-root "puppetlabs/metrics/dashboard/public"
                                       :server-port      3449
@@ -89,4 +98,5 @@
              :uberjar {:cljsbuild {:jar    true
                                    :builds {:app
                                             {:compiler
-                                                           {:main "puppetlabs.metrics.dashboard.demo.prod"}}}}}})
+                                                           {:main "puppetlabs.metrics.dashboard.demo.prod"}}}}}}
+  :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]})

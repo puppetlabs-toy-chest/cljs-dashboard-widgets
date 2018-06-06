@@ -71,10 +71,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn server-random-data-fn
-  [requests-atom functions-atom]
+  [requests-atom functions-atom server-port]
   (fn [channel]
     (go
-      (let [response (async/<! (http/get "/random-data"))]
+      (let [response (async/<! (http/get server-port))]
         (if-not (= 200 (:status response))
           (do
             ;; TODO: better error handling
@@ -147,7 +147,7 @@
                        ;(local-random-data-fn requests-atom functions-atom)
 
                        ;;; or, uncomment this line to get random data from the server
-                       (server-random-data-fn requests-atom functions-atom)
+                       (server-random-data-fn requests-atom functions-atom "http://localhost:8080/random-data")
                        )]
     (reagent/render-component [(metrics-boxes
                                  #(metrics-utils/get-values-for-metric metrics-data %))]

@@ -25,6 +25,7 @@ To run:
 * run `(go)`
 * run `(start-figwheel)`
 * open a browser to localhost:8080
+    * For the figwheel server, the host should be localhost:3449/metrics.html
 
 ```
 $ lein repl
@@ -38,7 +39,7 @@ Commands:
 => (start-figwheel) ;; starts figwheel, to dynamically
                     ;;  recompile cljs code and send it to
                     ;;  the browser
-=> (browser-repl)   ;; starts cljs repl, may need to reload
+=> (cljs-repl)   ;; starts cljs repl, may need to reload
                     ;;  browser to attach
 user=> (go)
 ...
