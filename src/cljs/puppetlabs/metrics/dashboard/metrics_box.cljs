@@ -51,24 +51,18 @@
 
 (defn initialize-counterbox
   [x-axis-domain data-fn counterbox-selection]
-  (let [x   (.. js/d3.time
-                scale
-                (domain x-axis-domain)
-                (range (array 0 w)))
-        y   (.. js/d3.scale
-                linear
-                (range (array h 1)))
-        line (.. js/d3.svg
-                 area
-                 (interpolate "linear")
-                 (x #(+ 1 (x (.-time %))))
-                 (y1 (+ h 1))
-                 (y0 #(y (.-value %))))
-        axis  (.. js/d3.svg
-                  axis
-                  (scale y)
-                  (orient "left")
-                  (ticks 3))
+  (let [x   (-> js/d3 (.scaleTime)
+                (.domain x-axis-domain)
+                (.range (array 0 w)))
+        y   (-> js/d3 (.scaleLinear)
+                (.range (array h 1)))
+        line (-> js/d3 (.area)
+                 (.x #(+ 1 (x (.-time %))))
+                 (.y1 (+ h 1))
+                 (.y0 #(y (.-value %))))
+        axis  (-> js/d3 (.axisLeft)
+                  (.scale y)
+                  (.ticks 3))
         svg-line-g (.select counterbox-selection ".line_g")
         svg-line-path (.select counterbox-selection ".line")]
     (.attr svg-line-g "clip-path" "url(#clip)")
@@ -135,15 +129,15 @@
                                         now
                                         (* (- num-historical-data-points 1)
                                            polling-interval))))]
-      (.. box-node
-          (select ".line")
-          (attr "d" (line data))
-          (attr "transform" nil)
-          transition
-          (duration polling-interval)
-          (ease "linear")
-          (attr "transform" translate)
-          (each "end" (fn [] (redraw-box!
+      (-> box-node
+          (.select ".line")
+          (.attr "d" (line data))
+          (.attr "transform" nil)
+          .transition
+          (.duration polling-interval)
+          (.ease js/d3.easeLinear)
+          (.attr "transform" translate)
+          (.on "end" (fn [] (redraw-box!
                                num-historical-data-points
                                polling-interval
                                box
