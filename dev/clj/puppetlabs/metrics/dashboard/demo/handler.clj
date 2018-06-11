@@ -58,7 +58,9 @@
           (update-timer-metrics requests-atom)
           (update-timer-metrics functions-atom)
           {:status 200
-           :headers {"Content-Type" "application/json"}
+           :headers {"Content-Type" "application/json"
+                     "Access-Control-Allow-Origin" "http://localhost:3449"
+                     "Access-Control-Allow-Credentials" "true"}
            :body (json/generate-string
                    {:metrics-boxes (random-metrics-box-data ["metric1" "metric2" "metric3" "metric4" "metric5"])
                     :requests (vals @requests-atom)
